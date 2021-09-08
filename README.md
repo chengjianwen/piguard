@@ -9,6 +9,10 @@ piunlock: 开锁
 
 ## 编译和安装
 
+需要安装libusb-1.0.0-dev，安装命令为：
+
+sudo apt install libusb-1.0-0-dev
+
 将相应平台下的libUSB2XXX.so（参考LU1000官方SDK）拷贝到系统目录/usr/lib下
 
 然后进入linux/piguard目录下用make进行编译
