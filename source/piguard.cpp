@@ -3,34 +3,34 @@
   * 作者       : pi-classroom.com
   * 版本       : 0.1
   * 说明       : 通过P3-P7控制电机驱动版，以及一个两路继电器。实现门锁控制和LED屏的控制
-  *                LU1000              L298N
+  *                LU1000
   *                  P3    <-------->   K1
-  *                  P4    <-------->   IN1
-  *                  P2    <-------->   IN2
+  *                  P4    <-------->   K2
+  *                  P5    <-------->
+  *                  P6    <-------->   IN1
+  *                  P7    <-------->   IN2
   *              程序需要通过pilock或者piunlock的命令来执行
   *****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include "usb2gpio.h"
 #include "usb_device.h"
 
 #define		P3	(1 << 3)	// K2
 #define		P4	(1 << 4)	// K1
-#define		P5	(1 << 5)	// noused
+#define		P5	(1 << 5)	//
 #define		P6	(1 << 6)	// motor-0
 #define		P7	(1 << 7)	// motor-1
 
-int main(int argc, const char* argv[])
+int main(int argc, char **argv)
 {
     int  handle;
     int  lock = -1;	// lock/unlock
     int  on = -1;	// on/off
     int  index;		// index of on/off
 
-    char *p;
-    p = (char *)argv[0] + strlen(argv[0]);
+    char *p = argv[0] + strlen(argv[0]);
     while (*(p-1) != '/' && p != argv[0])
         p--;
 
@@ -115,8 +115,8 @@ int main(int argc, const char* argv[])
           return -1;
       }
 
-      // 等待1秒钟
-      sleep(1);
+      // 等待500毫秒
+      usleep(500000);
 
       // 停止电机
       ret = GPIO_Write(handle,		// 设备句柄
