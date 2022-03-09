@@ -119,8 +119,7 @@ int main(int argc, char **argv)
       }
 
       // 等待500毫秒
-     // usleep(500000);
-      sleep(1);
+      usleep(500000);
 
       // 停止电机
       ret = GPIO_Write(handle,		// 设备句柄
